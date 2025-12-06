@@ -3,219 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash AI (50x Speed)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <title>Hyper-Realism AI Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS: Electric High-Speed Theme */
+        /* CSS: Professional Studio Look */
         :root {
-            --flash: #ffe600; /* Yellow for electricity */
-            --bg: #050505;
-            --panel: #1a1a1a;
+            --accent: #3b82f6; /* Studio Blue */
+            --bg: #09090b;
+            --surface: #18181b;
+            --text: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background-color: var(--bg);
-            color: white;
-            height: 100vh;
+            color: var(--text);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            padding: 20px;
         }
 
-        /* Speed Lines Animation Background */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(transparent, transparent 49px, rgba(255, 230, 0, 0.05) 50px);
-            z-index: -1;
+        .studio-card {
+            background: var(--surface);
+            border: 1px solid #27272a;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .container {
-            width: 90%;
-            max-width: 450px;
-            background: var(--panel);
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(255, 230, 0, 0.1);
-            position: relative;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            color: var(--flash);
-            text-shadow: 0 0 15px var(--flash);
-            margin-bottom: 5px;
-            font-style: italic;
+        h1 { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; }
+        .tag { 
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6); 
+            padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; 
         }
 
-        .badge {
-            background: #333;
-            color: var(--flash);
-            padding: 3px 10px;
-            font-size: 0.8rem;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 1px solid var(--flash);
-        }
+        .input-group { position: relative; margin-bottom: 20px; }
 
         textarea {
             width: 100%;
-            height: 80px;
+            height: 100px;
             background: #000;
-            border: 1px solid #444;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
             color: #fff;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 1.1rem;
-            border-radius: 5px;
-            outline: none;
+            font-size: 1rem;
             resize: none;
+            outline: none;
+            transition: 0.2s;
+        }
+        textarea:focus { border-color: var(--accent); }
+
+        /* Magic Switch */
+        .settings {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #a1a1aa;
+            align-items: center;
         }
 
-        textarea:focus { border-color: var(--flash); }
-
-        .btn-flash {
+        input[type="checkbox"] { accent-color: var(--accent); transform: scale(1.2); cursor: pointer; }
+        
+        .btn-generate {
             width: 100%;
-            background: var(--flash);
-            color: black;
+            padding: 16px;
+            background: var(--text);
+            color: #000;
             border: none;
-            padding: 15px;
-            font-size: 1.2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-top: 15px;
+            border-radius: 10px;
+            font-weight: 700;
             cursor: pointer;
-            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
-            transition: 0.1s;
+            transition: 0.2s;
+            font-size: 1rem;
         }
+        .btn-generate:hover { background: #e4e4e7; transform: translateY(-2px); }
+        .btn-generate:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .btn-flash:active { transform: scale(0.98); }
-        .btn-flash:hover { box-shadow: 0 0 20px var(--flash); }
-
-        .image-area {
-            margin-top: 20px;
-            min-height: 250px;
+        .result-area {
+            margin-top: 25px;
             background: #000;
-            border: 1px dashed #444;
+            border-radius: 12px;
+            min-height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
+            border: 1px solid #333;
+            overflow: hidden;
             position: relative;
         }
 
-        .image-area img {
+        .result-area img {
             width: 100%;
             height: auto;
             display: none;
-            border: 1px solid var(--flash);
+            animation: fadeIn 1s ease;
         }
 
-        /* Super Fast Loader */
-        .loader {
-            display: none;
-            width: 100%;
+        .loading-bar {
+            width: 200px;
             height: 4px;
-            background: #222;
-            position: relative;
+            background: #333;
+            border-radius: 2px;
             overflow: hidden;
+            display: none;
         }
-        .loader::after {
+        .loading-bar::after {
             content: '';
-            position: absolute;
-            left: 0; top: 0; height: 100%; width: 50%;
-            background: var(--flash);
-            animation: zip 0.5s infinite linear;
+            display: block;
+            width: 50%;
+            height: 100%;
+            background: var(--accent);
+            animation: load 1.5s infinite ease-in-out;
         }
 
-        @keyframes zip { 0% { left: -50%; } 100% { left: 100%; } }
+        .download-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: #fff;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+        }
+        .download-btn:hover { background: #222; }
 
+        @keyframes load { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Flash Gen ⚡</h1>
-        <span class="badge">Turbo Mode Enabled</span>
-
-        <textarea id="prompt" placeholder="Type prompt... (Ex: Sports car drifting)"></textarea>
-
-        <button class="btn-flash" id="genBtn" onclick="generateFast()">Create (Fast)</button>
-
-        <div class="image-area">
-            <div class="loader" id="loader"></div>
-            <img id="resultImage" src="" onclick="downloadImage()">
+    <div class="studio-card">
+        <div class="header">
+            <h1>Studio AI</h1>
+            <span class="tag">FLUX REALISM</span>
         </div>
-        <p style="font-size: 0.7rem; color: #666; margin-top: 10px;">Click image to download</p>
+
+        <div class="input-group">
+            <textarea id="prompt" placeholder="Describe your image... (e.g., A portrait of a woman in Tokyo at night)"></textarea>
+        </div>
+
+        <div class="settings">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="checkbox" id="magicMode" checked> 
+                <span>✨ Auto-Enhance (Make it Realistic)</span>
+            </label>
+            <select id="ratio" style="background: #222; color: #fff; border: 1px solid #333; padding: 5px; border-radius: 5px;">
+                <option value="square">Square (1:1)</option>
+                <option value="portrait">Portrait (9:16)</option>
+                <option value="landscape">Landscape (16:9)</option>
+            </select>
+        </div>
+
+        <button class="btn-generate" id="genBtn" onclick="generateArt()">Generate Masterpiece</button>
+
+        <div class="result-area">
+            <div class="loading-bar" id="loader"></div>
+            <img id="resultImage" src="" alt="Generated Art">
+        </div>
+        
+        <button class="download-btn" id="dlBtn" onclick="downloadImage()">Download HD</button>
     </div>
 
     <script>
-        // FLASH MODE LOGIC
+        // --- REALISM LOGIC ---
         
-        function generateFast() {
-            const prompt = document.getElementById('prompt').value;
-            const img = document.getElementById('resultImage');
+        function generateArt() {
+            const promptInput = document.getElementById('prompt');
+            const magicMode = document.getElementById('magicMode').checked;
+            const ratio = document.getElementById('ratio').value;
+            const genBtn = document.getElementById('genBtn');
             const loader = document.getElementById('loader');
-            const btn = document.getElementById('genBtn');
+            const img = document.getElementById('resultImage');
+            const dlBtn = document.getElementById('dlBtn');
 
-            if(!prompt) return alert("Prompt likho bhai!");
+            let userPrompt = promptInput.value.trim();
+            if (!userPrompt) return alert("Prompt toh likho!");
 
-            // UI Speed Setup
-            btn.disabled = true;
-            btn.innerText = "⚡ WORKING...";
-            img.style.display = "none";
+            // UI Loading State
+            genBtn.disabled = true;
+            genBtn.innerText = "Rendering High Quality...";
             loader.style.display = "block";
+            img.style.display = "none";
+            dlBtn.style.display = "none";
 
-            // --- THE 50X SPEED TRICK ---
-            // 1. Model = Turbo (Ye 1 second me banata hai)
-            // 2. Size = 512x512 (Standard fast size)
-            // 3. Random seed to ensure new image every time
-            
-            const seed = Math.floor(Math.random() * 10000);
-            // URL clean encoding for speed
-            const safePrompt = encodeURIComponent(prompt);
-            
-            // Pollinations ka Turbo Endpoint
-            const url = `https://image.pollinations.ai/prompt/${safePrompt}?model=turbo&width=512&height=512&seed=${seed}&nologo=true`;
+            // 1. MAGIC ENHANCER (Prompt Engineering)
+            // Agar Magic Mode ON hai, toh hum hidden keywords jodenge
+            if (magicMode) {
+                userPrompt += ", hyper-realistic, 8k resolution, cinematic lighting, highly detailed texture, sharp focus, photography style, shot on 35mm lens, masterpiece, unreal engine 5 render";
+            }
 
-            // Image Pre-fetch
+            // 2. ASPECT RATIO SETTINGS
+            let width = 1024, height = 1024;
+            if (ratio === "portrait") { width = 768; height = 1280; }
+            if (ratio === "landscape") { width = 1280; height = 768; }
+
+            // 3. MODEL: Flux (Best for Realism)
+            const seed = Math.floor(Math.random() * 100000);
+            const encodedPrompt = encodeURIComponent(userPrompt);
+            
+            // Pollinations URL with Flux Model
+            const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&width=${width}&height=${height}&seed=${seed}&nologo=true`;
+
+            // Image Load Logic
             const newImg = new Image();
             newImg.src = url;
 
-            newImg.onload = () => {
+            newImg.onload = function() {
                 img.src = url;
-                loader.style.display = "none";
                 img.style.display = "block";
-                btn.disabled = false;
-                btn.innerText = "Create (Fast)";
+                loader.style.display = "none";
+                genBtn.disabled = false;
+                genBtn.innerText = "Generate Again";
+                dlBtn.style.display = "block";
             };
 
-            newImg.onerror = () => {
-                alert("Network thoda slow hai, dobara click karo!");
+            newImg.onerror = function() {
+                alert("Generation failed. Please try again.");
                 loader.style.display = "none";
-                btn.disabled = false;
-                btn.innerText = "Try Again";
+                genBtn.disabled = false;
+                genBtn.innerText = "Generate Masterpiece";
             };
         }
 
-        function downloadImage() {
-            const img = document.getElementById('resultImage');
-            if(img.src) {
+        async function downloadImage() {
+            try {
+                const img = document.getElementById('resultImage');
+                const response = await fetch(img.src);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
-                a.href = img.src;
-                a.download = `flash-img-${Date.now()}.jpg`;
+                a.href = url;
+                a.download = `studio-art-${Date.now()}.jpg`;
+                document.body.appendChild(a);
                 a.click();
+                document.body.removeChild(a);
+            } catch (e) {
+                alert("Right click on image to save!");
             }
         }
     </script>
-
 </body>
 </html>
