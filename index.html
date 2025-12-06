@@ -3,232 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Turbo Gen</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Flash AI (50x Speed)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS: Same Dark Theme (User Liked) */
+        /* CSS: Electric High-Speed Theme */
         :root {
-            --primary: #00ff88;
-            --secondary: #60efff;
-            --bg-dark: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.8);
-            --text: #f8fafc;
+            --flash: #ffe600; /* Yellow for electricity */
+            --bg: #050505;
+            --panel: #1a1a1a;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(at 0% 0%, rgba(96, 239, 255, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(0, 255, 136, 0.15) 0px, transparent 50%);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 40px;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        p.subtitle { color: #94a3b8; font-size: 0.9rem; margin-bottom: 25px; }
-
-        textarea {
-            width: 100%;
-            height: 100px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 16px;
-            color: #fff;
-            font-size: 1rem;
-            resize: none;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        textarea:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            justify-content: center;
-        }
-
-        .btn-main {
-            width: 100%;
-            margin-top: 20px;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary), #00cc6a);
-            color: #000;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            text-transform: uppercase;
-        }
-
-        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 255, 136, 0.25); }
-        .btn-main:disabled { background: #475569; cursor: wait; opacity: 0.7; }
-
-        .image-box {
-            margin-top: 25px;
-            min-height: 280px;
-            border-radius: 16px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px dashed rgba(255, 255, 255, 0.1);
+            background-color: var(--bg);
+            color: white;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+        }
+
+        /* Speed Lines Animation Background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(transparent, transparent 49px, rgba(255, 230, 0, 0.05) 50px);
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background: var(--panel);
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 230, 0, 0.1);
             position: relative;
         }
 
-        .image-box img {
+        h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--flash);
+            text-shadow: 0 0 15px var(--flash);
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+
+        .badge {
+            background: #333;
+            color: var(--flash);
+            padding: 3px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid var(--flash);
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            background: #000;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            outline: none;
+            resize: none;
+        }
+
+        textarea:focus { border-color: var(--flash); }
+
+        .btn-flash {
+            width: 100%;
+            background: var(--flash);
+            color: black;
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 15px;
+            cursor: pointer;
+            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+            transition: 0.1s;
+        }
+
+        .btn-flash:active { transform: scale(0.98); }
+        .btn-flash:hover { box-shadow: 0 0 20px var(--flash); }
+
+        .image-area {
+            margin-top: 20px;
+            min-height: 250px;
+            background: #000;
+            border: 1px dashed #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .image-area img {
             width: 100%;
             height: auto;
-            border-radius: 16px;
             display: none;
-            animation: fadeUp 0.5s ease;
+            border: 1px solid var(--flash);
         }
 
+        /* Super Fast Loader */
         .loader {
             display: none;
-            width: 40px;
-            height: 40px;
-            border: 4px solid #fff;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            animation: rotation 0.8s linear infinite;
-        }
-
-        .download-btn {
-            display: none;
-            margin-top: 15px;
-            background: transparent;
-            border: 1px solid var(--secondary);
-            color: var(--secondary);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
             width: 100%;
+            height: 4px;
+            background: #222;
+            position: relative;
+            overflow: hidden;
         }
-        .download-btn:hover { background: var(--secondary); color: #000; }
+        .loader::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; height: 100%; width: 50%;
+            background: var(--flash);
+            animation: zip 0.5s infinite linear;
+        }
 
-        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes zip { 0% { left: -50%; } 100% { left: 100%; } }
+
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Turbo AI Art</h1>
-        <p class="subtitle">Super Fast Image Generation ⚡</p>
+        <h1>Flash Gen ⚡</h1>
+        <span class="badge">Turbo Mode Enabled</span>
 
-        <textarea id="prompt" placeholder="Type here... (e.g., Cyberpunk cat in neon rain)"></textarea>
+        <textarea id="prompt" placeholder="Type prompt... (Ex: Sports car drifting)"></textarea>
 
-        <button class="btn-main" id="genBtn" onclick="generateImage()">⚡ Generate Fast</button>
+        <button class="btn-flash" id="genBtn" onclick="generateFast()">Create (Fast)</button>
 
-        <div class="image-box">
+        <div class="image-area">
             <div class="loader" id="loader"></div>
-            <img id="resultImage" src="" alt="AI Art">
+            <img id="resultImage" src="" onclick="downloadImage()">
         </div>
-
-        <button class="download-btn" id="dlBtn" onclick="downloadImage()">Download Image</button>
+        <p style="font-size: 0.7rem; color: #666; margin-top: 10px;">Click image to download</p>
     </div>
 
     <script>
-        const genBtn = document.getElementById('genBtn');
-        const loader = document.getElementById('loader');
-        const resultImg = document.getElementById('resultImage');
-        const dlBtn = document.getElementById('dlBtn');
+        // FLASH MODE LOGIC
+        
+        function generateFast() {
+            const prompt = document.getElementById('prompt').value;
+            const img = document.getElementById('resultImage');
+            const loader = document.getElementById('loader');
+            const btn = document.getElementById('genBtn');
 
-        function generateImage() {
-            const prompt = document.getElementById('prompt').value.trim();
-            
-            if(!prompt) {
-                alert("Please enter a prompt!");
-                return;
-            }
+            if(!prompt) return alert("Prompt likho bhai!");
 
-            // UI Changes for Loading
-            genBtn.disabled = true;
-            genBtn.innerText = "Generating...";
+            // UI Speed Setup
+            btn.disabled = true;
+            btn.innerText = "⚡ WORKING...";
+            img.style.display = "none";
             loader.style.display = "block";
-            resultImg.style.display = "none";
-            dlBtn.style.display = "none";
 
-            // SPEED FIX:
-            // 1. Width/Height = 768 (Good quality but much faster than 1024)
-            // 2. Model = Flux (Ye naya model hai, bahut fast hai)
-            const seed = Math.floor(Math.random() * 999999);
-            const encodedPrompt = encodeURIComponent(prompt);
+            // --- THE 50X SPEED TRICK ---
+            // 1. Model = Turbo (Ye 1 second me banata hai)
+            // 2. Size = 512x512 (Standard fast size)
+            // 3. Random seed to ensure new image every time
             
-            // URL Structure optimized for Speed
-            const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=768&height=768&seed=${seed}&model=flux&nologo=true`;
+            const seed = Math.floor(Math.random() * 10000);
+            // URL clean encoding for speed
+            const safePrompt = encodeURIComponent(prompt);
+            
+            // Pollinations ka Turbo Endpoint
+            const url = `https://image.pollinations.ai/prompt/${safePrompt}?model=turbo&width=512&height=512&seed=${seed}&nologo=true`;
 
-            const img = new Image();
-            img.src = imageUrl;
+            // Image Pre-fetch
+            const newImg = new Image();
+            newImg.src = url;
 
-            img.onload = function() {
-                resultImg.src = imageUrl;
-                resultImg.style.display = "block";
+            newImg.onload = () => {
+                img.src = url;
                 loader.style.display = "none";
-                genBtn.disabled = false;
-                genBtn.innerText = "⚡ Generate Again";
-                dlBtn.style.display = "inline-block";
+                img.style.display = "block";
+                btn.disabled = false;
+                btn.innerText = "Create (Fast)";
             };
 
-            img.onerror = function() {
-                alert("Server busy! Trying backup model...");
-                // Fallback to smaller size if Flux fails
-                resultImg.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&seed=${seed}&nologo=true`;
-                resultImg.style.display = "block";
+            newImg.onerror = () => {
+                alert("Network thoda slow hai, dobara click karo!");
                 loader.style.display = "none";
-                genBtn.disabled = false;
+                btn.disabled = false;
+                btn.innerText = "Try Again";
             };
         }
 
-        async function downloadImage() {
-            try {
-                const imageUrl = resultImg.src;
-                const response = await fetch(imageUrl);
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
+        function downloadImage() {
+            const img = document.getElementById('resultImage');
+            if(img.src) {
                 const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = `turbo-art-${Date.now()}.jpg`;
-                document.body.appendChild(a);
+                a.href = img.src;
+                a.download = `flash-img-${Date.now()}.jpg`;
                 a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-            } catch (error) {
-                alert("Download failed. Right-click and Save Image.");
             }
         }
     </script>
+
 </body>
 </html>
