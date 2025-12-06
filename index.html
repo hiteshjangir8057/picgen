@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Art Generator</title>
-    <!-- Google Fonts -->
+    <title>AI Turbo Gen</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS: GitHub Ready - Dark Neon Theme */
+        /* CSS: Same Dark Theme (User Liked) */
         :root {
             --primary: #00ff88;
             --secondary: #60efff;
             --bg-dark: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-bg: rgba(30, 41, 59, 0.8);
             --text: #f8fafc;
         }
 
@@ -20,9 +19,7 @@
 
         body {
             background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(96, 239, 255, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 255, 136, 0.15) 0px, transparent 50%);
+            background-image: radial-gradient(at 0% 0%, rgba(96, 239, 255, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(0, 255, 136, 0.15) 0px, transparent 50%);
             color: var(--text);
             min-height: 100vh;
             display: flex;
@@ -34,34 +31,29 @@
         .container {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
             padding: 40px;
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
 
         h1 {
             font-size: 2rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
         }
 
-        p.subtitle {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 30px;
-        }
+        p.subtitle { color: #94a3b8; font-size: 0.9rem; margin-bottom: 25px; }
 
         textarea {
             width: 100%;
-            height: 120px;
+            height: 100px;
             background: rgba(15, 23, 42, 0.6);
             border: 2px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
@@ -73,15 +65,19 @@
             transition: 0.3s;
         }
 
-        textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+        textarea:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
         }
 
         .btn-main {
             width: 100%;
             margin-top: 20px;
-            padding: 16px;
+            padding: 14px;
             border: none;
             border-radius: 12px;
             background: linear-gradient(135deg, var(--primary), #00cc6a);
@@ -89,28 +85,18 @@
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: 0.2s;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .btn-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.25);
-        }
-
-        .btn-main:disabled {
-            background: #475569;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 255, 136, 0.25); }
+        .btn-main:disabled { background: #475569; cursor: wait; opacity: 0.7; }
 
         .image-box {
-            margin-top: 30px;
-            min-height: 300px;
+            margin-top: 25px;
+            min-height: 280px;
             border-radius: 16px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             border: 2px dashed rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
@@ -134,7 +120,7 @@
             border: 4px solid #fff;
             border-bottom-color: transparent;
             border-radius: 50%;
-            animation: rotation 1s linear infinite;
+            animation: rotation 0.8s linear infinite;
         }
 
         .download-btn {
@@ -147,40 +133,33 @@
             border-radius: 8px;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: 0.3s;
+            width: 100%;
         }
-
-        .download-btn:hover {
-            background: var(--secondary);
-            color: #0f172a;
-        }
+        .download-btn:hover { background: var(--secondary); color: #000; }
 
         @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>AI Imagine</h1>
-        <p class="subtitle">Free Unlimited Image Generation</p>
+        <h1>Turbo AI Art</h1>
+        <p class="subtitle">Super Fast Image Generation ⚡</p>
 
-        <textarea id="prompt" placeholder="Imagine something... (e.g., A cute astronaut cat on Mars, digital art, 8k)"></textarea>
+        <textarea id="prompt" placeholder="Type here... (e.g., Cyberpunk cat in neon rain)"></textarea>
 
-        <button class="btn-main" id="genBtn" onclick="generateImage()">Generate Art</button>
+        <button class="btn-main" id="genBtn" onclick="generateImage()">⚡ Generate Fast</button>
 
         <div class="image-box">
             <div class="loader" id="loader"></div>
             <img id="resultImage" src="" alt="AI Art">
         </div>
 
-        <button class="download-btn" id="dlBtn" onclick="downloadImage()">Download HD Image</button>
+        <button class="download-btn" id="dlBtn" onclick="downloadImage()">Download Image</button>
     </div>
 
     <script>
-        // GitHub Pages Friendly Logic
-        
         const genBtn = document.getElementById('genBtn');
         const loader = document.getElementById('loader');
         const resultImg = document.getElementById('resultImage');
@@ -194,65 +173,60 @@
                 return;
             }
 
-            // UI Reset
+            // UI Changes for Loading
             genBtn.disabled = true;
-            genBtn.innerText = "Dreaming...";
+            genBtn.innerText = "Generating...";
             loader.style.display = "block";
             resultImg.style.display = "none";
             dlBtn.style.display = "none";
 
-            // Pollinations AI URL (No API Key Required)
-            // Hum random seed use karte hain taki har baar nayi image bane
+            // SPEED FIX:
+            // 1. Width/Height = 768 (Good quality but much faster than 1024)
+            // 2. Model = Flux (Ye naya model hai, bahut fast hai)
             const seed = Math.floor(Math.random() * 999999);
             const encodedPrompt = encodeURIComponent(prompt);
-            const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?seed=${seed}&width=1024&height=1024&nologo=true`;
+            
+            // URL Structure optimized for Speed
+            const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=768&height=768&seed=${seed}&model=flux&nologo=true`;
 
-            // Image Preloading Logic
             const img = new Image();
             img.src = imageUrl;
 
             img.onload = function() {
-                // Jab image load ho jaye tabhi show karein
                 resultImg.src = imageUrl;
                 resultImg.style.display = "block";
                 loader.style.display = "none";
                 genBtn.disabled = false;
-                genBtn.innerText = "Generate Again";
+                genBtn.innerText = "⚡ Generate Again";
                 dlBtn.style.display = "inline-block";
             };
 
             img.onerror = function() {
-                alert("Error loading image. Server busy, please try again.");
+                alert("Server busy! Trying backup model...");
+                // Fallback to smaller size if Flux fails
+                resultImg.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&seed=${seed}&nologo=true`;
+                resultImg.style.display = "block";
                 loader.style.display = "none";
                 genBtn.disabled = false;
-                genBtn.innerText = "Generate Art";
             };
         }
 
-        // Secure Download Logic for GitHub Pages (CORS Bypass)
         async function downloadImage() {
             try {
-                const imageUrl = document.getElementById('resultImage').src;
-                // Fetch image as blob data
+                const imageUrl = resultImg.src;
                 const response = await fetch(imageUrl);
                 const blob = await response.blob();
-                
-                // Create a temporary link
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.href = url;
-                a.download = `ai-generated-${Date.now()}.jpg`;
-                
+                a.download = `turbo-art-${Date.now()}.jpg`;
                 document.body.appendChild(a);
                 a.click();
-                
-                // Cleanup
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
             } catch (error) {
-                console.error('Download failed:', error);
-                alert("Download failed. Please right-click the image and select 'Save Image As'.");
+                alert("Download failed. Right-click and Save Image.");
             }
         }
     </script>
